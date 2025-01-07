@@ -1,0 +1,1 @@
+Dieses Projekt hatte zum Ziel, ein erstes Projekt im Rahmen des Devops und IT-Sicherheitsunterrichts zu erstellen, das sich vor allem auf die Sicherheit beim Einloggen und Registrieren konzentriert und Sessions verwendet. 
