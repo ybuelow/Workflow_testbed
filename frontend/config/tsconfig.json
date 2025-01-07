@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "plugins": [
+            {
+                "name": "typescript-tslint-plugin"
+            }
+        ],
+        "allowJs": false,
+        "strict": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "importHelpers": true,
+        "target": "es2022",
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "declaration": true,
+        "moduleResolution": "node",
+        "skipLibCheck": false,
+        "noImplicitAny": true,
+        "emitDecoratorMetadata": true,
+        "resolveJsonModule": true,
+        "strictNullChecks": true
+    }
+}

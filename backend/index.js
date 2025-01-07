@@ -1,29 +1,20 @@
-import express from "express";
-import { config } from "dotenv";
-import mongoose from "mongoose";
-import { router as memoryRouter } from "./memory/memory.routes.js";
-import { router as authRouter } from "./auth/auth.routes.js";
-import { router as userRouter } from "./user/user.routes.js";
-import { init } from "./auth/init.js";
+import express from "express"
+import cors from "cors"
+import { router as alleRout } from "./routes/routes.js";
 
-const app = express();
 
-mongoose.connect(process.env.DB_URL);
-app.use(express.static("static"));
-init(app);
+// erstellen es Server
+const app = express()
+app.use(express.json())
+app.use(cors());
 
-app.use(express.json());
-app.use("/memorys", memoryRouter);
-app.use("/auth", authRouter);
-app.use("/users", userRouter);
 
-mongoose.connection.once("open", () => {
-  console.log(process.env.KEY_PATH, process.env.CERT_PATH);
-  const port = process.env.PORT;
-  console.log(port);
-  console.log("Connected to MongoDB");
+// router definiert
+app.use("/entrys", alleRout)
 
-  app.listen(port, () => {
-    console.log(`Server listens to https://localhost:${port}`);
+
+//Port
+  const PORT = 3001
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}.`);
   });
-});
