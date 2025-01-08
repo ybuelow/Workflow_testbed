@@ -9,7 +9,6 @@ env:
   REGISTRY_GHCR: ghcr.io
   NAMESPACE_GHCR: yanisb
   IMAGE_NAME: yanis
-  USERNAME: ybuelow
 
 jobs:
   build_and_push:
@@ -26,7 +25,8 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
-                username: ${{ env.USERNAME }}
+                registry: ${{ env.REGISTRY_GHCR }}
+                username: ${{ github.repository_owner }}
                 password: ${{ secrets.SECRET_KEY}}
       - name: Build and push
         uses: docker/build-push-action@v4
