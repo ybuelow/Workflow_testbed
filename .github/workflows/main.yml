@@ -37,7 +37,7 @@ jobs:
             uses: actions/upload-artifact@v3
             with:
               name: Build
-              path: ./frontend/dist/first-project
+              path: ./frontend/dist
 
     install-backend:
         runs-on: ubuntu-latest
@@ -52,8 +52,6 @@ jobs:
               npm install
           - name: get dist
             uses: actions/download-artifact@v4
-            with:
-              name: Build
 
           - name: copy dist to the backend
             run: |
