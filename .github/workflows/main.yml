@@ -36,7 +36,7 @@ jobs:
           - name: upload-artifact
             uses: actions/upload-artifact@v3
             with:
-              name: Build
+              name: dist-folder
               path: ./frontend/dist
 
     install-backend:
@@ -53,13 +53,13 @@ jobs:
           - name: get dist
             uses: actions/download-artifact@v4
             with:
-              name: Build
+              name: dist-folder
               path: ./frontend/dist
 
           - name: copy ./frontend/dist to the backend
             run: |
               cd backend
-              cp -r dist ./
+              cp -r ./frontend/dist ./
               ls
           - name: build backend
             run: |
