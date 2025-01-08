@@ -60,7 +60,7 @@ jobs:
             run: |
               cd backend
               ls
-              cp -r /frontend/dist ./
+              cp -r ../frontend/dist ./ 
               ls
           - name: build backend
             run: |
