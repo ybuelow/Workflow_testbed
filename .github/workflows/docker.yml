@@ -45,6 +45,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
+          target: production
           tags: ${{ env.REGISTRY_GHCR }}/${{ env.NAMESPACE_GHCR }}/${{ env.IMAGE_NAME }}:latest
           build-args: |
             NODE_ENV=production
