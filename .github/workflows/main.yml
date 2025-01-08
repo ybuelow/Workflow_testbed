@@ -56,10 +56,11 @@ jobs:
               name: dist-folder
               path: ./frontend/dist
 
-          - name: copy ./frontend/dist to the backend
+          - name: copy dist-folder to the backend
             run: |
               cd backend
-              cp -r ./frontend/dist ./
+              ls
+              cp -r /frontend/dist ./
               ls
           - name: build backend
             run: |
