@@ -37,7 +37,7 @@ jobs:
             uses: actions/upload-artifact@v3
             with:
               name: Build
-              path: dist/first-project
+              path: ./frontend/dist/first-project
 
     install-backend:
         runs-on: ubuntu-latest
