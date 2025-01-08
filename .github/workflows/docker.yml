@@ -38,7 +38,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY_GHCR }}  # ghcr.io for GitHub Container Registry
           username: ${{ github.repository_owner }}  # GitHub username
-          password: ${{ secrets.SECRET_KEY }}  # Use GitHub token for authentication
+          password: ${{ secrets.ALL }}  # Use GitHub token for authentication
 
       # Build and push the Docker image
       - name: Build and push Docker image
