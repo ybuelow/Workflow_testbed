@@ -1,9 +1,9 @@
 name: Workflow docker registry and build 
 
 on:
-  push:
-    tags:
-      - '*'
+    push:
+        branches:
+            - main
 
 env:
   REGISTRY_GHCR: ghcr.io
