@@ -26,8 +26,7 @@ jobs:
 
           - name: install dependencys
             run: |
-              ls
-              cd ./Workflow_testbed/frontend
+              cd ./frontend
               npm install
           - name: build frontend
             run: |
