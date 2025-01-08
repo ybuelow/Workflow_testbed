@@ -1,11 +1,28 @@
-FROM node:latest
+# Stage 1: Build Angular app
+FROM node:18.13.0-alpine as build
 
-WORKDIR /opt/didok
+WORKDIR /opt/frontend
 
-COPY . .
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm install
 
-RUN npm install --production
+COPY frontend/ ./
 
-CMD ["node", "./index.js"]
+RUN npm run build --prod
 
-USER yanis
+FROM node:18.13.0-alpine as final
+
+WORKDIR /opt/backend
+
+COPY backend/package.json backend/package-lock.json ./
+RUN npm install
+
+COPY backend/ ./
+
+COPY --from=build /opt/frontend/dist /opt/backend/dist
+
+EXPOSE 3001
+
+ENV NODE_ENV=production
+
+CMD ["npm", "start"]

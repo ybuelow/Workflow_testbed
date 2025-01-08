@@ -1,0 +1,30 @@
+name: Workflow docker registry and build 
+
+on:
+  push:
+    tags:
+      - '*'
+
+env:
+  REGISTRY_GHCR: ghcr.io
+  NAMESPACE_GHCR: yanisb
+  IMAGE_NAME: yanis
+
+jobs:
+  build_and_push:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v3
+
+      # Build and push the docker image
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        id: docker_build
+        timeout-minutes: 5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          target: production
