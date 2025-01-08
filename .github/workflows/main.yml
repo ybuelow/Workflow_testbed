@@ -3,7 +3,7 @@ name: Workflow buildpipeline
 on:
     push:
         branches:
-            - main
+            - develope
 
 jobs:
     # Build Job
