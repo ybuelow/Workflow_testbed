@@ -52,8 +52,11 @@ jobs:
               npm install
           - name: get dist
             uses: actions/download-artifact@v4
+            with:
+              name: Build
+              path: ./frontend/dist
 
-          - name: copy dist to the backend
+          - name: copy ./frontend/dist to the backend
             run: |
               cd backend
               cp -r dist ./
