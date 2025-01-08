@@ -21,6 +21,9 @@ jobs:
         runs-on: ubuntu-latest
         needs: prepare
         steps:
+          - name: checkout
+            uses: actions/checkout@v3
+
           - name: install dependencys
             run: |
               ls
