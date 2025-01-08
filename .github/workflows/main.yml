@@ -54,12 +54,12 @@ jobs:
             uses: actions/download-artifact@v4
             with:
               name: Build
-              path: dist
 
           - name: copy dist to the backend
             run: |
               cd backend
               cp -r dist ./
+              ls
           - name: build backend
             run: |
               cd backend
