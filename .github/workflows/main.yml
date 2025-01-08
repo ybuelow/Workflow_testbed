@@ -1,18 +1,19 @@
-name: Workflow buildpipeline 
+name: Workflow buildpipeline
 
 on:
     push:
         branches:
             - main
+
 jobs:
-    #Build Job
+    # Build Job
     prepare:
         runs-on: ubuntu-latest
-        steps:            
-            - name: checkout
+        steps:
+            - name: Checkout repository
               uses: actions/checkout@v3
 
-            - name: install node
+            - name: Install Node.js
               uses: actions/setup-node@v3
               with:
                 node-version: 20.x
@@ -21,19 +22,21 @@ jobs:
         runs-on: ubuntu-latest
         needs: prepare
         steps:
-          - name: checkout
+          - name: Checkout repository
             uses: actions/checkout@v3
 
-          - name: install dependencys
+          - name: Install frontend dependencies
             run: |
-              cd ./frontend
+              cd frontend
               npm install
-          - name: build frontend
+
+          - name: Build frontend
             run: |
               cd frontend
               npm run build
               ls
-          - name: upload-artifact
+
+          - name: Upload frontend dist folder as artifact
             uses: actions/upload-artifact@v4
             with:
               name: dist-folder
@@ -43,48 +46,46 @@ jobs:
         runs-on: ubuntu-latest
         needs: install-frontend
         steps:
-          - name: checkout
+          - name: Checkout repository
             uses: actions/checkout@v3
 
-          - name: install dependencys
+          - name: Install backend dependencies
             run: |
               cd backend
               npm install
               
-          - name: get dist
+          - name: Download frontend dist folder artifact
             uses: actions/download-artifact@v4
             with:
               name: dist-folder
               path: ./frontend/dist
 
-          - name: copy dist-folder to the backend
+          - name: Copy frontend dist folder to the backend
             run: |
               cd backend
               cp -r ../frontend/dist ./ 
-              
-          - name: upload-artifact
+
+          - name: Upload backend artifact
             uses: actions/upload-artifact@v4
+            with:
+              name: backend-artifact
+              path: .
+
+    deploy:
+        needs: install-backend
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v3
+
+          - name: Download backend artifact
+            uses: actions/download-artifact@v4
             with:
               name: backend-artifact
               path: ./prod
 
-    deploy:
-      needs: install-backend
-      runs-on: ubuntu-latest
-      steps:
-        - name: checkout
-          uses: actions/checkout@v3
-
-        - name: Download artifact
-          uses: actions/download-artifact@v4
-          with:
-            name: backend-artifact
-            path: ./prod
-
-        - name: Deploy to GitHub Pages
-          uses: peaceiris/actions-gh-pages@v3
-          with:
-            github_token: ${{ secrets.SECRET_KEY }}
-            publish_dir: ./prod
-
-            
+          - name: Deploy to GitHub Pages
+            uses: peaceiris/actions-gh-pages@v3
+            with:
+              github_token: ${{ secrets.SECRET_KEY }}
+              publish_dir: ./prod
