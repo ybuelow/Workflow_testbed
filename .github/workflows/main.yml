@@ -34,7 +34,7 @@ jobs:
               npm run build
               ls
           - name: upload-artifact
-            uses: actions/upload-artifact@v3
+            uses: actions/upload-artifact@v4
             with:
               name: dist-folder
               path: ./frontend/dist
@@ -66,7 +66,7 @@ jobs:
               cd backend
               npm run build
           - name: upload-artifact
-            uses: actions/upload-artifact@v3
+            uses: actions/upload-artifact@v4
             with:
               name: backend
               path: prod
@@ -79,7 +79,7 @@ jobs:
           uses: actions/checkout@v3
 
         - name: Download artifact
-          uses: actions/download-artifact@v3
+          uses: actions/download-artifact@v4
           with:
             name: backend
             path: prod
