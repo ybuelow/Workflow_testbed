@@ -50,6 +50,7 @@ jobs:
             run: |
               cd backend
               npm install
+              
           - name: get dist
             uses: actions/download-artifact@v4
             with:
@@ -59,18 +60,13 @@ jobs:
           - name: copy dist-folder to the backend
             run: |
               cd backend
-              ls
               cp -r ../frontend/dist ./ 
-              ls
-          - name: build backend
-            run: |
-              cd backend
-              npm run build
+              
           - name: upload-artifact
             uses: actions/upload-artifact@v4
             with:
               name: backend
-              path: prod
+              path: ./prod
 
     deploy:
       needs: install-backend
@@ -83,12 +79,12 @@ jobs:
           uses: actions/download-artifact@v4
           with:
             name: backend
-            path: prod
+            path: ./prod
 
         - name: Deploy to GitHub Pages
           uses: peaceiris/actions-gh-pages@v3
           with:
             github_token: ${{ secrets.SECRET_KEY }}
-            publish_dir: ./test/build
+            publish_dir: ./prod
 
             
