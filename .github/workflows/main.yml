@@ -23,6 +23,7 @@ jobs:
         steps:
           - name: install dependencys
             run: |
+              ls -la
               cd ./Workflow_testbed/frontend
               npm install
           - name: build frontend
