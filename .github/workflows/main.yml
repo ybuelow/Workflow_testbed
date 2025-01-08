@@ -23,7 +23,7 @@ jobs:
         steps:
           - name: install dependencys
             run: |
-              cd frontend
+              cd ../frontend
               npm install
           - name: build frontend
             run: |
