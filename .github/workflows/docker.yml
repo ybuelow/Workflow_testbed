@@ -1,4 +1,4 @@
-name: Workflow docker registry and build
+name: Workflow Docker Registry and Build
 
 on:
   push:
@@ -34,7 +34,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY_GHCR }}  # ghcr.io for GitHub Container Registry
           username: ${{ github.repository_owner }}  # GitHub username
-          password: ${{ secrets.GITHUB_TOKEN }}  # Use GitHub token for authentication
+          password: ${{ secrets.GITHUB_TOKEN }}  # GitHub token for authentication
 
       # Build and push the Docker image
       - name: Build and push Docker image
@@ -44,3 +44,6 @@ jobs:
           tags: ${{ env.REGISTRY_GHCR }}/${{ env.NAMESPACE_GHCR }}/${{ env.IMAGE_NAME }}:latest
           build-args: |
             NODE_ENV=production
+          # Optional: Enable caching for faster builds
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
